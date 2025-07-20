@@ -63,10 +63,36 @@ echo "✅ Found external drive: $EXTERNAL_DRIVE"
 EXTERNAL_MODS_PATH="$EXTERNAL_DRIVE/Sims4/Mods"
 
 echo
+echo "Checking for existing mods on external drive..."
+
+# Check if mods already exist on external drive
+if [ -d "$EXTERNAL_MODS_PATH" ]; then
+  echo "✅ Found existing Mods folder on external drive: $EXTERNAL_MODS_PATH"
+
+  # Check if it has content
+  if [ "$(ls -A "$EXTERNAL_MODS_PATH" 2>/dev/null)" ]; then
+    echo "✅ External Mods folder contains files - will use existing mods"
+    COPY_MODS=false
+  else
+    echo "⚠️  External Mods folder is empty - will copy local mods"
+    COPY_MODS=true
+  fi
+else
+  echo "📁 No Mods folder found on external drive - will copy local mods"
+  COPY_MODS=true
+fi
+
+echo
 echo "Setup Summary:"
-echo "  Source: $MODS_PATH"
-echo "  Destination: $EXTERNAL_MODS_PATH"
-echo "  Backup: $BACKUP_PATH"
+if [ "$COPY_MODS" = true ]; then
+  echo "  Action: Copy local mods to external drive and create symlink"
+  echo "  Source: $MODS_PATH"
+  echo "  Destination: $EXTERNAL_MODS_PATH"
+else
+  echo "  Action: Create symlink to existing external mods (no copying)"
+  echo "  External Mods: $EXTERNAL_MODS_PATH"
+fi
+echo "  Local Backup: $BACKUP_PATH"
 echo
 
 read -p "Continue with this setup? (y/n): " confirm_setup
@@ -78,33 +104,24 @@ fi
 echo
 echo "Starting setup process..."
 
-# Create Sims4 directory on external drive if it doesn't exist
-echo "📁 Creating directory structure on external drive..."
-mkdir -p "$EXTERNAL_DRIVE/Sims4"
+if [ "$COPY_MODS" = true ]; then
+  # Create Sims4 directory on external drive if it doesn't exist
+  echo "📁 Creating directory structure on external drive..."
+  mkdir -p "$EXTERNAL_DRIVE/Sims4"
 
-# Check if there's already content in the external mods path
-if [ -d "$EXTERNAL_MODS_PATH" ]; then
-  echo "⚠️  Warning: Mods folder already exists on external drive"
-  read -p "Do you want to overwrite it? (y/n): " overwrite
-  if [[ $overwrite == "y" || $overwrite == "Y" ]]; then
-    echo "🗑️  Removing existing external Mods folder..."
-    rm -rf "$EXTERNAL_MODS_PATH"
+  # Copy mods to external drive
+  echo "📦 Copying Mods folder to external drive..."
+  echo "  This may take a while depending on the size of your mods..."
+  cp -R "$MODS_PATH" "$EXTERNAL_MODS_PATH"
+
+  if [ $? -eq 0 ]; then
+    echo "✅ Successfully copied mods to external drive"
   else
-    echo "Setup cancelled to prevent data loss."
+    echo "❌ Error copying mods to external drive"
     exit 1
   fi
-fi
-
-# Copy mods to external drive
-echo "📦 Copying Mods folder to external drive..."
-echo "  This may take a while depending on the size of your mods..."
-cp -R "$MODS_PATH" "$EXTERNAL_MODS_PATH"
-
-if [ $? -eq 0 ]; then
-  echo "✅ Successfully copied mods to external drive"
 else
-  echo "❌ Error copying mods to external drive"
-  exit 1
+  echo "⏭️  Skipping copy - using existing mods on external drive"
 fi
 
 # Backup original mods folder
@@ -143,11 +160,20 @@ fi
 
 echo
 echo "=================================="
-echo "✅ Setup Complete!"
+if [ "$COPY_MODS" = true ]; then
+  echo "✅ Setup Complete! Mods copied and symlink created."
+else
+  echo "✅ Setup Complete! Symlink created to existing external mods."
+fi
 echo "=================================="
 echo
-echo "Your Sims 4 mods are now stored on your external drive."
-echo "The game will access them normally through the symbolic link."
+if [ "$COPY_MODS" = true ]; then
+  echo "Your Sims 4 mods have been copied to your external drive and"
+  echo "a symbolic link has been created for seamless access."
+else
+  echo "Your existing Sims 4 mods on the external drive are now"
+  echo "accessible through a symbolic link."
+fi
 echo
 echo "Important reminders:"
 echo "  • Always connect your external drive before playing"
