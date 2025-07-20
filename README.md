@@ -29,6 +29,10 @@ A bash script to move your Sims 4 mods to an external drive and create a symboli
 
 1. **Download the script:**
    ```bash
+   # Navigate to a writable directory (like Downloads or Desktop)
+   cd ~/Downloads
+   
+   # Download the script
    curl -O https://raw.githubusercontent.com/planetsaint/Create_Sims4Syslink/main/setup_syslink.sh
    ```
 
@@ -55,7 +59,7 @@ $ ./setup_syslink.sh
 Sims 4 Mods External Drive Setup
 ==================================
 
-Running as user: Willy
+Running as user: Wub
 Using home directory: /Users/mikelle
 
 ✅ Found Sims 4 directory: /Users/mikelle/Documents/Electronic Arts/The Sims 4
@@ -116,3 +120,10 @@ After running the script, your setup will look like this:
     └── Mods/                              (your mods on external drive)
 ```
 
+## Contributing
+
+Feel free to submit issues or pull requests if you encounter problems or have suggestions for improvements.
+
+## License
+
+This script is provided as-is for personal use. Use at your own risk and always backup your save files before making changes to your Sims 4 installation.
