@@ -33,7 +33,7 @@ A bash script to move your Sims 4 mods to an external drive and create a symboli
    cd ~/Downloads
    
    # Download the script
-   curl -O https://raw.githubusercontent.com/planetsaint/Create_Sims4Syslink/main/setup_syslink.sh
+   curl -O https://raw.githubusercontent.com/planetsaint/Create-Sims4Syslink/main/setup_syslink.sh
    ```
 
 2. **Make it executable:**
