@@ -60,10 +60,10 @@ Sims 4 Mods External Drive Setup
 ==================================
 
 Running as user: Wub
-Using home directory: /Users/mikelle
+Using home directory: /Users/wub
 
-✅ Found Sims 4 directory: /Users/mikelle/Documents/Electronic Arts/The Sims 4
-✅ Found Mods folder: /Users/mikelle/Documents/Electronic Arts/The Sims 4/Mods
+✅ Found Sims 4 directory: /Users/wub/Documents/Electronic Arts/The Sims 4
+✅ Found Mods folder: /Users/wub/Documents/Electronic Arts/The Sims 4/Mods
 
 Available external drives:
   - MyExternalDrive
@@ -73,9 +73,9 @@ Enter the name of your external drive: MyExternalDrive
 ✅ Found external drive: /Volumes/MyExternalDrive
 
 Setup Summary:
-  Source: /Users/mikelle/Documents/Electronic Arts/The Sims 4/Mods
+  Source: /Users/wub/Documents/Electronic Arts/The Sims 4/Mods
   Destination: /Volumes/MyExternalDrive/Sims4/Mods
-  Backup: /Users/mikelle/Documents/Electronic Arts/The Sims 4/Mods_backup
+  Backup: /Users/wub/Documents/Electronic Arts/The Sims 4/Mods_backup
 
 Continue with this setup? (y/n): y
 ```
